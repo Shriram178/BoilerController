@@ -144,6 +144,13 @@ public class BoilerManager
         return logEntries;
     }
 
+    /// <summary>
+    /// Returns the boiler status as string
+    /// </summary>
+    /// <returns></returns>
+    public string GetBoilerStatus()
+    { return _boiler.SystemStatus; }
+
     private void StartPrePurge()
     {
         _boiler.SystemStatus = "Pre-Purge";
