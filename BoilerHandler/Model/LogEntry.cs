@@ -1,15 +1,26 @@
 ﻿namespace BoilerHandler.Model;
 
+/// <summary>
+/// Model to store retrieved 
+/// log data
+/// </summary>
 public class LogEntry
 {
+    /// <summary>
+    /// Time the log was created at.
+    /// </summary>
     public string TimeStamp { get; set; }
-    public string EventStatus { get; set; }
-    public string EventData { get; set; }
 
-    public override string ToString()
-    {
-        return $"[Log]  TimeStamp : {TimeStamp} ," +
-            $" Event : {EventStatus},  Data : {EventData}";
-    }
+    /// <summary>
+    /// Status of the <see cref="Boiler"/>
+    /// during log message
+    /// </summary>
+    public string EventStatus { get; set; }
+
+    /// <summary>
+    /// Description of the log event that 
+    /// occurred in the boiler
+    /// </summary>
+    public string EventData { get; set; }
 }
 
