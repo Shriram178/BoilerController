@@ -6,6 +6,9 @@ public class UserInteractor
 {
     private BoilerManager boilerManager = new BoilerManager();
 
+    /// <summary>
+    /// Asks the user for the operation to perform
+    /// </summary>
     public void DisaplyMenu()
     {
         bool isRunning = true;
@@ -37,6 +40,9 @@ public class UserInteractor
         }
     }
 
+    /// <summary>
+    /// Gets the switch state from the user
+    /// </summary>
     public void ToggleSwitch()
     {
         string userChoice = CreateDropDown<string>(StringConstants.SwitchState, StringConstants.selectMenuOptions, StringConstants.MenuFields);
