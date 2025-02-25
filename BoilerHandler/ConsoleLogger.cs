@@ -12,7 +12,10 @@ public class ConsoleLogger
     /// <param name="timeStamp">Current Time as string</param>
     /// <param name="eventStatus">The Status of the boiler</param>
     /// <param name="eventData">Description about the system state</param>
-    public void DisplayConsole(string timeStamp, string eventStatus, string eventData)
+    public void DisplayConsole(
+        string timeStamp,
+        string eventStatus,
+        string eventData)
     {
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine($"[Log]  TimeStamp : {timeStamp} ," +
