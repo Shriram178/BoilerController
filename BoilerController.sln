@@ -5,6 +5,8 @@ VisualStudioVersion = 17.12.35527.113 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoilerHandler", "BoilerHandler\BoilerHandler.csproj", "{A0DF2187-11BD-4798-9D27-0A7ADE9D85D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoilerHandler.Tests", "BoilerHandler.Tests\BoilerHandler.Tests.csproj", "{D3F5DE4F-758B-44D1-9676-2EDDB154E11A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A0DF2187-11BD-4798-9D27-0A7ADE9D85D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0DF2187-11BD-4798-9D27-0A7ADE9D85D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0DF2187-11BD-4798-9D27-0A7ADE9D85D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3F5DE4F-758B-44D1-9676-2EDDB154E11A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3F5DE4F-758B-44D1-9676-2EDDB154E11A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3F5DE4F-758B-44D1-9676-2EDDB154E11A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3F5DE4F-758B-44D1-9676-2EDDB154E11A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

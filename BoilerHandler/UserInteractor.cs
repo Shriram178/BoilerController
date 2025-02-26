@@ -60,7 +60,7 @@ public class UserInteractor
 
     /// <summary>
     /// Prints all the logs in a
-    /// <see cref="Cons"/>
+    /// <see cref="ConsoleTable"/>
     /// </summary>
     public void ViewEventLogs()
     {
@@ -129,7 +129,7 @@ public class UserInteractor
                 Console.Clear();
                 return items[selectedIndex];
             }
-            else if (key == ConsoleKey.B) // Handle back action
+            else if (key == ConsoleKey.B)
             {
                 Console.Clear();
                 return default;

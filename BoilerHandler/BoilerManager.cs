@@ -26,9 +26,18 @@ public class BoilerManager
     /// </summary>
     public ConsoleLogger Logger = new ConsoleLogger();
 
+    /// <summary>
+    /// Singleton instance of <see cref="FileLogger"/>
+    /// </summary>
     public FileLogger FileLogger = new FileLogger();
 
     private static Boiler _boiler;
+
+    /// <summary>
+    /// Constructor of <see cref="BoilerManager"/>
+    /// initializes <see cref="Boiler"/> and subscribes
+    /// loggers to an event
+    /// </summary>
     public BoilerManager()
     {
         Greet();
@@ -95,6 +104,10 @@ public class BoilerManager
     {
         _boiler.InterLockSwitch = switchState;
     }
+
+    /// <summary>
+    /// Prints a greet message to the user
+    /// </summary>
     public void Greet()
     {
         Console.WriteLine("\n Welcome Boiler Initialized !! ");
@@ -130,6 +143,13 @@ public class BoilerManager
         List<LogEntry> logEntries = FileLogger.RetrieveLogData();
         return logEntries;
     }
+
+    /// <summary>
+    /// Returns the boiler status as string
+    /// </summary>
+    /// <returns></returns>
+    public string GetBoilerStatus()
+    { return _boiler.SystemStatus; }
 
     private void StartPrePurge()
     {

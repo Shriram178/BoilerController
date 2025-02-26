@@ -1,5 +1,8 @@
 ﻿namespace BoilerHandler.Constants;
 
+/// <summary>
+/// Class to store string constants
+/// </summary>
 public static class StringConstants
 {
 
