@@ -1,4 +1,4 @@
-﻿using System.Timers;
+﻿using System.Globalization;
 using BoilerHandler.Model;
 
 namespace BoilerHandler;
@@ -26,11 +26,14 @@ public class BoilerManager
     /// </summary>
     public ConsoleLogger Logger = new ConsoleLogger();
 
+    public FileLogger FileLogger = new FileLogger();
+
     private static Boiler _boiler;
     public BoilerManager()
     {
         Greet();
         LogData += Logger.DisplayConsole;
+        LogData += FileLogger.WriteLogToFile;
         _boiler = new Boiler();
     }
 
@@ -63,7 +66,6 @@ public class BoilerManager
         _boiler = new Boiler();
         _boiler.EventData = "Boiler Stopped!!";
         EventInvoker();
-
     }
 
     /// <summary>
@@ -73,7 +75,15 @@ public class BoilerManager
     /// </summary>
     public void SimulateBoilerError()
     {
-
+        if (_boiler.SystemStatus == "Operational")
+        {
+            _boiler.EventData = "Boiler Error in Operational Mode";
+            EventInvoker();
+            ResetLockOut();
+            throw new BoilerError("Simulated Boiler error in operational mode");
+        }
+        Console.WriteLine("Boiler is not in operational mode , Nothing to simulate !!");
+        Console.ReadKey();
     }
 
     /// <summary>
@@ -87,7 +97,7 @@ public class BoilerManager
     }
     public void Greet()
     {
-        Console.WriteLine("\n Boiler Initializes");
+        Console.WriteLine("\n Welcome Boiler Initialized !! ");
         Console.ReadKey();
     }
 
@@ -106,12 +116,20 @@ public class BoilerManager
         {
             _boiler.EventData = "Cannot Reset ,Boiler switch is open!!";
         }
-        EventInvoker();
 
+        EventInvoker();
     }
 
-
-    public void ViewEventLog() { }
+    /// <summary>
+    /// Returns the log data fetched from
+    /// a CSV
+    /// </summary>
+    /// <returns><see cref="List{LogEntry}"/></returns>
+    public List<LogEntry> GetEventLog()
+    {
+        List<LogEntry> logEntries = FileLogger.RetrieveLogData();
+        return logEntries;
+    }
 
     private void StartPrePurge()
     {
@@ -147,17 +165,10 @@ public class BoilerManager
                 _boiler.EventData);
     }
 
-    private void TimerElapsed(object sender, ElapsedEventArgs e)
-    {
-        LogData?.Invoke(GetCurrentDateTime(),
-                _boiler.SystemStatus,
-                _boiler.EventData);
-    }
-
     private string GetCurrentDateTime()
     {
-        DateTime now = DateTime.UtcNow;
-        string formattedNow = now.ToString("yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
+        DateTime now = DateTime.Now;
+        string formattedNow = now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
         return formattedNow;
     }
 
@@ -166,6 +177,7 @@ public class BoilerManager
         LogData?.Invoke(GetCurrentDateTime(),
                 _boiler.SystemStatus,
                 _boiler.EventData);
+
         Console.ReadKey();
     }
 

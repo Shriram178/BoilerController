@@ -5,6 +5,6 @@ public class Program
     static void Main()
     {
         UserInteractor user = new UserInteractor();
-        user.DisaplyMenu();
+        user.DisplayMenu();
     }
 }

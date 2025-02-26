@@ -1,4 +1,6 @@
 ﻿using BoilerHandler.Constants;
+using BoilerHandler.Model;
+using ConsoleTables;
 
 namespace BoilerHandler;
 
@@ -9,12 +11,15 @@ public class UserInteractor
     /// <summary>
     /// Asks the user for the operation to perform
     /// </summary>
-    public void DisaplyMenu()
+    public void DisplayMenu()
     {
         bool isRunning = true;
         while (isRunning)
         {
-            string userChoice = CreateDropDown<string>(StringConstants.MenuOperations, StringConstants.selectMenuOptions, StringConstants.MenuFields);
+            string? userChoice = CreateDropDown<string>(
+                StringConstants.MenuOperations,
+                StringConstants.selectMenuOptions,
+                StringConstants.MenuFields);
             switch (userChoice)
             {
                 case "Start Sequence":
@@ -24,6 +29,16 @@ public class UserInteractor
                     boilerManager.StopSequence();
                     break;
                 case "Simulate Boiler Error":
+                    try
+                    {
+                        boilerManager.SimulateBoilerError();
+                    }
+                    catch (BoilerError ex)
+                    {
+                        Console.WriteLine(ex.Message, Console.ForegroundColor = ConsoleColor.Red);
+                        Console.ReadKey();
+                    }
+
                     break;
                 case "Toggle InterLock Switch":
                     ToggleSwitch();
@@ -32,12 +47,47 @@ public class UserInteractor
                     boilerManager.ResetLockOut();
                     break;
                 case "View Log":
+                    ViewEventLogs();
                     break;
                 case "Exit":
                     isRunning = false;
                     break;
+                default:
+                    break;
             }
         }
+    }
+
+    /// <summary>
+    /// Prints all the logs in a
+    /// <see cref="Cons"/>
+    /// </summary>
+    public void ViewEventLogs()
+    {
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Your Logs :\n");
+        Console.ResetColor();
+
+        List<LogEntry> logEntries = boilerManager.GetEventLog();
+        if (logEntries.Count > 0)
+        {
+            var table = new ConsoleTable("TimeStamp", "EventStatus", "EventData");
+            foreach (var item in logEntries)
+            {
+                table.AddRow(item.TimeStamp, item.EventStatus, item.EventData);
+            }
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            table.Write();
+            Console.ResetColor();
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("No Logs to show");
+            Console.ResetColor();
+        }
+
+        Console.ReadKey();
     }
 
     /// <summary>
@@ -45,7 +95,10 @@ public class UserInteractor
     /// </summary>
     public void ToggleSwitch()
     {
-        string userChoice = CreateDropDown<string>(StringConstants.SwitchState, StringConstants.selectMenuOptions, StringConstants.MenuFields);
+        string? userChoice = CreateDropDown<string>(
+            StringConstants.SwitchState,
+            StringConstants.selectMenuOptions,
+            StringConstants.MenuFields);
         if (userChoice != null)
         {
             boilerManager.ToggleRunInteractorSwitch(userChoice);
